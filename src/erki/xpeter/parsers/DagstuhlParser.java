@@ -70,13 +70,17 @@ public final class DagstuhlParser implements Parser, Observer<TextMessage> {
             if (this.random.nextDouble() < .6) {
                 
                 final long days = (this.nextDagstuhl - now) / 1000 / 60 / 60 / 24;
-                StringBuilder message = new StringBuilder(MSG_STARTS[this.random.nextInt(MSG_STARTS.length)]);
-                message.append(days);
-                message.append(DAYS);
-                message.append(COMMENTS[this.random.nextInt(COMMENTS.length)]);
-                this.lastReminded = now;
                 
-                msg.respond(new DelayedMessage(message.toString(), 1000));
+                if (days > 0l) {
+                    
+                    StringBuilder message = new StringBuilder(MSG_STARTS[this.random.nextInt(MSG_STARTS.length)]);
+                    message.append(days);
+                    message.append(DAYS);
+                    message.append(COMMENTS[this.random.nextInt(COMMENTS.length)]);
+                    this.lastReminded = now;
+                    
+                    msg.respond(new DelayedMessage(message.toString(), 1000));
+                }
             }
         }
     }
